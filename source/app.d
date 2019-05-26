@@ -18,32 +18,40 @@ void shell(KFS_Dir root = new KFS_Dir("/")) {
     }
 
     string[] cmds = input.split;
+    bool result;
 
     final switch (cmds[0]) with (Command) {
     case Mkdir:
-      mkdir(ctx, cmds[1]);
+      result = mkdir(ctx, cmds[1]);
       break;
     case Touch:
-      touch(ctx, cmds[1]);
+      result = touch(ctx, cmds[1]);
       break;
     case Chdir:
-      chdir(ctx, cmds[1]);
+      result = chdir(ctx, cmds[1]);
       break;
     case Ls:
-      ls(ctx);
+      result = ls(ctx);
       break;
     case Pwd:
-      pwd(ctx);
+      result = pwd(ctx);
       break;
     case Tree:
-      tree(ctx);
+      result = tree(ctx);
       break;
     case CopyFromHost:
-      copyFromHost(ctx, cmds[1], cmds[2]);
+      result = copyFromHost(ctx, cmds[1], cmds[2]);
       break;
     case Cat:
-      cat(ctx, cmds[1]);
+      result = cat(ctx, cmds[1]);
       break;
+    case Help:
+      help(ctx);
+      break;
+    }
+
+    if (!result) {
+      writeln("command error");
     }
   }
 }

@@ -13,6 +13,7 @@ enum Command : string {
   Tree = "tree",
   CopyFromHost = "copyFromHost",
   Cat = "cat",
+  Help = "help",
 }
 
 class KFSContext {
@@ -133,4 +134,15 @@ bool cat(KFSContext ctx, string name) {
 
     return true;
   }
+}
+
+bool help(KFSContext ctx) {
+  import std.format;
+
+  foreach (cmd; __traits(allMembers, Command)) {
+    mixin("string cmd_str = Command.%s;".format(cmd));
+    writeln(cmd_str);
+  }
+
+  return true;
 }
